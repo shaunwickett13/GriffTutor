@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Griff Tutor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" href="apple-touch-icon.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="ajax/ajax_lib_09-89.js"></script>
+    <script>
+        function showTutors(day, hour) {
+            $.post("ajax/ajax_getTutors.php", {
+                day: day,
+                hour: hour
+            }).done(function (data) {
+                var tutors = JSON.parse(data);
+                fillTutors(day, hour, tutors);
+            });
+
+        }
+
+        function fillTutors(day, hour, tutors) {
+            day = day.charAt(0).toUpperCase() + day.substring(1);
+            if (hour.length == 3)
+                hour = hour.substring(0, 1) + ':' + hour.substring(1);
+            else
+                hour = hour.substring(0, 2) + ':' + hour.substring(2);
+            var html = '<li>' + day + ' at ' + hour;
+            
+            console.log(tutors);
+            $('#tutors-list').html(html);
+            for (var i = 0; i < tutors.length; i++) {
+                var tutor = tutors[i];
+                html = '<h3>' + tutor['name'] + '</h3>';
+                if (tutor['email'] != '')
+                    html += '<i>' + tutor['email'] + '</i><br/>';
+                if (tutor['bio'] != '')
+                    html += '<p style="font-size: 0.8em; margin-top: 5px"><i>"' + tutor['bio'] + '"</i></p>';
+                html = '<li>' + html + '</li>';
+                $('#tutors-list').append(html);
+            }
+        }
+
+        function refreshButtons(schedule) {
+            // Set buttons as selected or not, and add event ilisteners
+            $('.button-hour').each(function (i, button) {
+                var info = this.id.split('_');
+                var day = info[0];
+                var hour = info[1];
+                if (day in schedule && schedule[day].indexOf(hour) > -1) {
+                    $(this).addClass('available');
+                    button.addEventListener('click', function (evt) {
+                        showTutors(day, hour);
+                    });
+                }
+            });
+        }
+
+        $(function () {
+
+            // Get schedule
+            var schedule = [];
+            $.post("ajax/ajax_getHours.php", {}).done(function (data) {
+                schedule = JSON.parse(data);
+                refreshButtons(schedule);
+            });	    
+	    
+        });
+    </script>
+
+
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <header>
+            <div class="header-wrapper">
+                <img id="logo" src="img/icon.png" alt="Griff Tutor Logo" />
+                <h1><span class="first-letter">G</span>RIFF <span class="first-letter">T</span>UTOR</h1>
+            </div>
+	    <div id = "isloaded"></div>
+
+        </header>
+        <section id="content" class="main-page">
+
+            <div id="schedule" class="widget">
+                <header>
+                    <h2><span class="first-letter">S</span>CHEDULE</h2>
+                </header>
+                <div id="schedule-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><span class="week-day">Monday</span><span class="week-day-short">M</span></th>
+                                <th><span class="week-day">Tuesday</span><span class="week-day-short">T</span></th>
+                                <th><span class="week-day">Wednesday</span><span class="week-day-short">W</span></th>
+                                <th><span class="week-day">Thursday</span><span class="week-day-short">R</span></th>
+                                <th><span class="week-day">Friday</span><span class="week-day-short">F</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <button id="monday_900" class="button-hour">9:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_900" class="button-hour">9:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_900" class="button-hour">9:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_900" class="button-hour">9:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_900" class="button-hour">9:00 AM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_930" class="button-hour">9:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_930" class="button-hour">9:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_930" class="button-hour">9:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_930" class="button-hour">9:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_930" class="button-hour">9:30 AM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1000" class="button-hour">10:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1000" class="button-hour">10:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1000" class="button-hour">10:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1000" class="button-hour">10:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1000" class="button-hour">10:00 AM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1030" class="button-hour">10:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1030" class="button-hour">10:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1030" class="button-hour">10:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1030" class="button-hour">10:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1030" class="button-hour">10:30 AM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1100" class="button-hour">11:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1100" class="button-hour">11:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1100" class="button-hour">11:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1100" class="button-hour">11:00 AM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1100" class="button-hour">11:00 AM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1130" class="button-hour">11:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1130" class="button-hour">11:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1130" class="button-hour">11:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1130" class="button-hour">11:30 AM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1130" class="button-hour">11:30 AM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1200" class="button-hour">12:00 PM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1200" class="button-hour">12:00 PM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1200" class="button-hour">12:00 PM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1200" class="button-hour">12:00 PM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1200" class="button-hour">12:00 PM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1230" class="button-hour">12:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1230" class="button-hour">12:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1230" class="button-hour">12:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1230" class="button-hour">12:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1230" class="button-hour">12:30 PM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1330" class="button-hour">1:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1330" class="button-hour">1:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1330" class="button-hour">1:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1330" class="button-hour">1:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1330" class="button-hour">1:30 PM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1400" class="button-hour">2:00 PM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1400" class="button-hour">2:00 PM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1400" class="button-hour">2:00 PM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1400" class="button-hour">2:00 PM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1400" class="button-hour">2:00 PM</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="monday_1430" class="button-hour">2:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="tuesday_1430" class="button-hour">2:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="wednesday_1430" class="button-hour">2:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="thursday_1430" class="button-hour">2:30 PM</button>
+                                </td>
+                                <td>
+                                    <button id="friday_1430" class="button-hour">2:30 PM</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div id="tutors" class="widget">
+                <header>
+                    <h2><span class="first-letter">T</span>UTORS</h2>
+                </header>
+                <div id="tutors-list-wrap">
+                <ul id="tutors-list">
+                    <p id="tutors-list-help">Select one hour to see the tutors who are available!</p>
+                </ul>
+                </div>
+            </div>
+
+        </section>
+        <footer>
+            <span>Idea, design and implementation by Álvaro Reneses &amp; Shaun Wickett for CSC380 - <a href="admin/login.php">Administration</a> </span><span></span>
+        </footer>
+    </div>
+</body>
+
+</html>
