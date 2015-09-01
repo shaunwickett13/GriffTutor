@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="theme-color" content="#0e275b">
     <title>Griff Tutor - Administration</title>
     <link rel="stylesheet" href="../style.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

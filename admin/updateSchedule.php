@@ -42,7 +42,7 @@
     }
 
     #ck-button {
-        margin:4px;
+        margin:2px;
         background-color:#EFEFEF;
         border-radius:4px;
         border:1px solid #D0D0D0;
@@ -83,12 +83,16 @@
     <tbody>
     <?php
     $hours = array(
+        Schedule::AM_8_00=>'8:00 AM', Schedule::AM_8_30=>'8:30 AM',
         Schedule::AM_9_00=>'9:00 AM',Schedule::AM_9_30=>'9:30 AM',
         Schedule::AM_10_00=>'10:00 AM',Schedule::AM_10_30=>'10:30 AM',
         Schedule::AM_11_00=>'11:00 AM',Schedule::AM_11_30=>'11:30 AM',
         Schedule::PM_12_00=>'12:00 PM',Schedule::PM_12_30=>'12:30 PM',
         Schedule::PM_1_30=>'1:00 PM',Schedule::PM_1_30=>'1:30 PM',
-        Schedule::PM_2_00=>'2:00 PM',Schedule::PM_2_30=>'2:30 PM');
+        Schedule::PM_2_00=>'2:00 PM',Schedule::PM_2_30=>'2:30 PM',
+        Schedule::PM_3_00=>'3:00 PM',Schedule::PM_3_30=>'3:30 PM',
+        Schedule::PM_4_00=>'4:00 PM',Schedule::PM_4_30=>'4:30 PM',
+        Schedule::PM_5_00=>'5:00 PM',Schedule::PM_5_30=>'5:30 PM');
 
     foreach ($hours as $hourCode=>$hourName) {
         echo '<tr>';

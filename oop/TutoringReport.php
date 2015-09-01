@@ -42,18 +42,30 @@ class TutoringReport {
         $this -> report = $report;
     }
 
+    /**
+     * @return Tutor The tutor that filled out this report
+     */
     public function getTutor() {
         return $this -> tutor;
     }
 
+    /**
+     * @return int|null The date that this report was filled out as a UNIX timestamp
+     */
     public function getDate() {
         return $this -> date;
     }
 
+    /**
+     * @return string The name of the student that this report refers to
+     */
     public function getStudentName () {
         return $this -> studentName;
     }
 
+    /**
+     * @return string The report text itself
+     */
     public function getReport () {
         return $this -> report;
     }
