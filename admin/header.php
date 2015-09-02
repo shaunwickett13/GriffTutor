@@ -96,7 +96,8 @@
                    <ul>
 
                        <li><a href = "listTutors.php" > List of tutors </a></li>
-                       <li><a href = "manageTutors.php" > Manage tutors </a></li> 
+                       <li><a href = "manageTutors.php" > Add/Remove tutors </a></li>
+                       <li><a href = "modifyProfile.php" > Manage profiles </a></li>
                        <li><a href = "viewTimesheets.php"> View timesheets </a></li>
                        <li><a href = "viewTutoringReports.php"> View tutoring reports </a></li>
 

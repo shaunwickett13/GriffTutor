@@ -148,7 +148,7 @@
 </style>
 
 <div class="manageTutors">
-    <h2>Register new tutor</h2>
+    <h2>Add new tutor</h2>
     <form id="registerTutorForm">
         <input type="hidden" name="action" value="registerTutor"/><br/>
         <input type="text" id="ID" placeholder="ID" size="10"/>*<br/>
